@@ -4,10 +4,10 @@ rm(list=ls())
 setwd(getwd())
 
 # loading the training data
-LifeInsurance_training_data <- read.csv("./Data/train.csv",na.strings=c("",NA))
+LifeInsurance_training_data <- read.csv("../Data/train.csv",na.strings=c("",NA))
 
 # loading the test data
-LifeInsurance_test_data <- read.csv("./Data/test.csv",na.strings=c("",NA))
+LifeInsurance_test_data <- read.csv("../Data/test.csv",na.strings=c("",NA))
 
 # code for handling the missing values in traing data
 LifeInsurance_training_data$Employment_Info_1[is.na(LifeInsurance_training_data$Employment_Info_1)]<-mean(LifeInsurance_training_data$Employment_Info_1, na.rm = TRUE)
