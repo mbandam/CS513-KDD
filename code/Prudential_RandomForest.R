@@ -8,6 +8,9 @@ LifeInsurance_data <- read.csv("/Users/mounikabandam/Documents/Stevens/CS 513 Kn
 class(LifeInsurance_data$Response) #integer
 LifeInsurance_data$Response<-as.factor(LifeInsurance_data$Response)
 
+# Removing the dummy variables as facing problem with the model running
+LifeInsurance_data <- LifeInsurance_data[,-c(80:127)]
+
 # Removng columns which are not required for the model(reason mentioned in DataCleaning file)
 LifeInsurance_data <- LifeInsurance_data[,c(-1,-3,-30,-35,-36,-37,-38,-48,-53,-62,-70)]
 
@@ -34,8 +37,8 @@ install.packages("randomForest")
 library('randomForest')
 
 # applying the random forest
-fit <- randomForest(Response~.,data = training, importance = TRUE, ntree= 300) # no of trees checked from 0 to 10000 and got the good result at 300, so i am using the 300.
-importance(fit)
+fit <- randomForest(Response~.,data = training, importance = TRUE, ntree= 300)
+# importance(fit)
 
 # tells about which variables are important
 varImpPlot(fit)
@@ -44,9 +47,9 @@ varImpPlot(fit)
 Prediction <- predict(fit,test)
 
 #confusion Matrix
-table(actual=test[,10], Prediction)
+table(actual=test[,69], Prediction)
 
 # Error rate
-wrong<- (test[,10]!=Prediction )
+wrong<- (test[,69]!=Prediction )
 error_rate<-sum(wrong)/length(wrong)
 error_rate
