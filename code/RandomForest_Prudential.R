@@ -33,11 +33,11 @@ test<-LifeInsurance_data[index,]
 training<-LifeInsurance_data[-index,]
 
 # installing and loading the package randomForest
-install.packages("randomForest")
+# install.packages("randomForest")
 library('randomForest')
 
 # applying the random forest
-fit <- randomForest(Response~.,data = training, importance = TRUE, ntree= 300)
+fit <- randomForest(Response~.,data = training, importance = TRUE, ntree= 500, mtry = 5 )
 # importance(fit)
 
 # tells about which variables are important
@@ -47,9 +47,10 @@ varImpPlot(fit)
 Prediction <- predict(fit,test)
 
 #confusion Matrix
-table(actual=test[,69], Prediction)
+table(Actual=test[,69], Predicted = Prediction)
 
 # Error rate
 wrong<- (test[,69]!=Prediction )
 error_rate<-sum(wrong)/length(wrong)
 error_rate
+
