@@ -29,7 +29,7 @@ test<-LifeInsurance_data[index,]
 training<-LifeInsurance_data[-index,]
 
 # installing and loading the package nnet
-install.packages('nnet')
+# install.packages('nnet')
 library(nnet)
 
 # logistic regression model
@@ -40,7 +40,8 @@ predicted_scores <- predict(model, test, type = 'probs')
 predicted_class <- predict (model, test)
 
 #confusion matrix
-table(predicted_class, test$Response)
+table(Actual = test$Response, Predicted = predicted_class)
 
 # Error rate
 mean(as.character(predicted_class) != as.character(test$Response))
+
