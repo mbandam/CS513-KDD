@@ -20,11 +20,12 @@ test<-LifeInsurance_training_data[idx,]
 training<-LifeInsurance_training_data[-idx,]
 
 
-training <- training[,c(-1,-3,-30,-35,-36,-37,-38,-48,-53,-62,-70)]
-test <- test[,c(-1,-3,-30,-35,-36,-37,-38,-48,-53,-62,-70)]
+#training <- training[,c(-1,-3,-30,-35,-36,-37,-38,-48,-53,-62,-70)]
+#test <- test[,c(-1,-3,-30,-35,-36,-37,-38,-48,-53,-62,-70)]
 
-#training <- training[,c(4,5,9,10,11,12,13,14,16,18,19,21,26,28,29,31,34,39,40,67,80)]
-#test <- test[,c(4,5,9,10,11,12,13,14,16,18,19,21,26,28,29,31,34,39,40,67,80)]
+training <- training[,c(4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,21,24,26,28,29,31,32,33,34,40,42,47,54,61,63,64,67,74,79,80)]
+
+test <- test[,c(4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,21,24,26,28,29,31,32,33,34,40,42,47,54,61,63,64,67,74,79,80)]
 
 km <- kmeans(training, centers=8)
 closest.cluster <- function(x) {
@@ -37,16 +38,16 @@ clusters2 <- apply(test, 1, closest.cluster)
 results<-cbind(test, as.character(clusters2))
 
 
-table(Actual=test[,21],Prediction=results[,22])
+table(Actual=test[,35],Prediction=results[,36])
 
-wrong<-results[,21]!=results[,22]
+right<-results[,35]==results[,36]
 
-rate<-sum(wrong)/length(wrong)
+rate<-sum(right)/length(right)
 
 rate
 
-#without almost all 0.885072
-#With only some columns - 0.8698324
+#without almost all 0.114928
+#With only some columns - 0.1336196
 
 
 

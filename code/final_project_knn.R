@@ -26,45 +26,30 @@ idx=seq(from=1,to=nrow(LifeInsurance_training_data),by=5)
 test<-LifeInsurance_training_data[idx,]
 training<-LifeInsurance_training_data[-idx,]
 
-#training <- training[,c(-1,-3,-15,-30,-35,-36,-37,-38,-48,-53,-62,-70)]
-#test <- test[,c(-1,-3,-15,-30,-35,-36,-37,-38,-48,-53,-62,-70)]
+#training <- training[,c(-1,-3,-30,-35,-36,-37,-38,-39,-48,-53,-62,-70)]
+#test <- test[,c(-1,-3,-30,-35,-36,-37,-38,-39,-48,-53,-62,-70)]
 
 
-training <- training[,c(4,5,9,10,11,12,13,14,16,18,19,21,26,28,29,31,34,39,40,67,80)]
+training <- training[,c(4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,21,24,26,28,29,31,32,33,34,40,42,47,54,61,63,64,67,74,79,80)]
 
-test <- test[,c(4,5,9,10,11,12,13,14,16,18,19,21,26,28,29,31,34,39,40,67,80)]
+test <- test[,c(4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,21,24,26,28,29,31,32,33,34,40,42,47,54,61,63,64,67,74,79,80)]
 
 
 test$Response <- as.factor(test$Response)
 training$Response <- as.factor(training$Response)
 
-totalCols <- 21
+totalCols <- 35
 
-predict<-knn(training[,-1 * totalCols],test[,-1 * totalCols],training[,totalCols],k=5)
+predict<-knn(training[,-1 * totalCols],test[,-1 * totalCols],training[,totalCols],k=25)
 
-results<-cbind(test, as.character(predict))
-
-table(Actual=test[,totalCols],Prediction=results[,totalCols + 1])
-
-wrong<-results[,totalCols]!=results[,totalCols + 1]
-
-rate<-sum(wrong)/length(wrong)
-
-rate
+print(sum(test$Response == predict)/length(test$Response))
 
 
 ###################################
 #RESULTS:
-###(-1,-3,-30,-35,-36,-37,-38,-39,-48,-53,-62,-70) - 0.6632988
-###(-1,-3,-30,-35,-36,-37,-38,-48,-53,-62,-70) 0.6792961
+###(-1,-3,-30,-35,-36,-37,-38,-39,-48,-53,-62,-70) - 0.3309758 with K = 5, 0.3468047 K = 10, 0.3583396 K = 15, 0.3608655 K = 25
 
-## after removing all Medical keyword columns - 0.6860318
-
-
-## 2,4,5,9,10,11,12,13,14,16,18,19,21,34,39,40,80 - 0.7133956
-
-##Adding all product info
-## 2,4,5,6,7,8,9,10,11,12,13,14,16,18,19,21,34,39,40,80 - 0.7177738
+## (4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,21,24,26,28,29,31,32,33,34,40,42,47,54,61,63,64,67,74,79,80) 0.3615391
 
 
 #Steps for the data analysis:

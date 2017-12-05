@@ -28,27 +28,22 @@ training<-LifeInsurance_training_data[-idx,]
 #test <- test[,c(-1,-3,-30,-35,-36,-37,-38,-48,-53,-62,-70)]
 
 
-training <- training[,c(4,5,9,10,11,12,13,14,16,18,19,21,26,28,29,31,34,39,40,67,80)]
+training <- training[,c(4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,21,24,26,28,29,31,32,33,34,40,42,47,54,61,63,64,67,74,79,80)]
 
-test <- test[,c(4,5,9,10,11,12,13,14,16,18,19,21,26,28,29,31,34,39,40,67,80)]
+test <- test[,c(4,5,6,7,9,10,11,12,13,14,15,16,17,18,19,21,24,26,28,29,31,32,33,34,40,42,47,54,61,63,64,67,74,79,80)]
 
 test$Response <- as.factor(test$Response)
 training$Response <- as.factor(training$Response)
 
-predict_k5 <- kknn(formula=Response~., training, test, k=5)
+predict_k5 <- kknn(formula=Response~., training, test, k=25)
 
 fit <- fitted(predict_k5)
-table(test$Response, fit)
 
-results<-cbind(test, as.character(fit))
-wrong<-results[,21]!=results[,22]
+print(sum(test$Response == fit)/length(test$Response))
 
-rate<-sum(wrong)/length(wrong)
 
-rate
-
-#Everything we are at 0.6526901
-#Same as KNN we got 0.6772754
+#Almost all K= 5 0.3473099, K=25 0.424097
+#SOME K = 25 0.4208975
 
 
 
